@@ -1,15 +1,15 @@
 # BanchFoundry Analyzer
 Analyzer for results obtained by the BenchFoundry benchmarking framework.
 
-# Goal
+## Goal
 
 The main goal of this project is to provide an extensible framework to extract meaningful aggregates for raw measurements obtained after running a benchmark with the BenchFoundry execution framework. In order to achieve this goal, we must consider a set of specific design requirements.
 
-# Foundation
+## Foundation
 The workload abstraction of the BenchFoundry execution framework includes a hierarchy: BusinessProcess > BusinessTransaction > BusinessOperation > Request. A workload can be executed by multiple BenchFoundry clients in parallel. The granularity of distribution is a BusinessProcess, thus, all subunits of a BusinessProcess are executed by the same BenchFoundry client.
 After running a benchmark with the BenchFoundry execution framework, each BenchFoundry client produces a single output file that contains the raw measurements for this client. Each measurement is stored in a specific data format. Depending on the workload, result files can become large > 1GB. Therefore, the structure is implicit to minimize storage requirements.
 
-# Requirements
+## Requirements
 - **R1**: Accept a set of files as input to the BenchFoundry analyzer.
 - **R2**: Preserve meta-information provided by the implicit structure of the raw result files provided by the BenchFoundry clients.
 - **R3**: Scale to large input files that exceed multiple GB in total size.
@@ -21,8 +21,8 @@ After running a benchmark with the BenchFoundry execution framework, each BenchF
 - **R9**: Develop against JDK 8uxxx to avoid additional deployment requirements over the benchFoundry execution framework.
 - **R10**: Allow for explicit strategies to handle any corrupt or missing data.
 
-# Design
-## Canonical Data Format
+## Design
+#### Canonical Data Format
 The BenchFoundry analyzer maps raw measurements internally in a canonical data format that can be represented as a relational schema (R1 & R2). Each row in the corresponding relation represents a single BusinessOperation executed by the BenchFoundry execution framework. We refer to a single row as Measurement. The relation includes the following attributes:
 
 - **executing_node_id**: The identifier of the BenchFoundry client that executed the corresponding BusinessProcess. 
@@ -39,5 +39,5 @@ The BenchFoundry analyzer maps raw measurements internally in a canonical data f
 
 We assume that this canonical data format is not exhaustive. Therefore, we allow adding additional attributes in the future (R7).
 
-## Stream Processing Core
+#### Stream Processing Core
 We designed the core of the BenchFoundry analyzer as stream processing application to support raw inputs that exceed the size of the memory in a target execution environment (R3 & R4). The stream processing core operates on a stream of Measurement elements that is provided by a StreamBuilder. The Processor is initialized with a set of MetricProvider objects. A MetricProvider operates on a stream of Measurement elements and returns an unordered list of Metric objects. The Processor wraps all Metric objects provided by all MetricProvider objects in a single Statistics that is forwarded to a Renderer. The renderer prints raw Metrics or populates a template with metrics provided by a Statistics object. 
