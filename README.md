@@ -5,7 +5,7 @@ Analyzer for results obtained by the BenchFoundry benchmarking framework.
 
 The main goal of this project is to provide an extensible framework to extract meaningful aggregates for raw measurements obtained after running a benchmark with the BenchFoundry execution framework. In order to achieve this goal, we must consider a set of specific design requirements.
 
-## Foundation
+## Background
 The workload abstraction of the BenchFoundry execution framework includes a hierarchy: BusinessProcess > BusinessTransaction > BusinessOperation > Request. A workload can be executed by multiple BenchFoundry clients in parallel. The granularity of distribution is a BusinessProcess, thus, all subunits of a BusinessProcess are executed by the same BenchFoundry client.
 After running a benchmark with the BenchFoundry execution framework, each BenchFoundry client produces a single output file that contains the raw measurements for this client. Each measurement is stored in a specific data format. Depending on the workload, result files can become large > 1GB. Therefore, the structure is implicit to minimize storage requirements.
 
