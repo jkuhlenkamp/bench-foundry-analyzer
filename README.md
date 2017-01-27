@@ -10,7 +10,7 @@ The workload abstraction of the BenchFoundry execution framework includes a hier
 After running a benchmark with the BenchFoundry execution framework, each BenchFoundry client produces a single output file that contains the raw measurements for this client. Each measurement is stored in a specific data format. Depending on the workload, result files can become large > 1GB. Therefore, the structure is implicit to minimize storage requirements.
 
 ## Requirements
-- **R1**: Accept a set of files as input to the BenchFoundry analyzer.
+- **R1**: Accept a set of files with raw measurements from the BenchFoundry execution framework as input to the BenchFoundry analyzer.
 - **R2**: Preserve meta-information provided by the implicit structure of the raw result files provided by the BenchFoundry clients.
 - **R3**: Scale to large input files that exceed multiple GB in total size.
 - **R4**: Avoid high resource requirements for a target execution environment to run the BenchFoundry analyzer.
