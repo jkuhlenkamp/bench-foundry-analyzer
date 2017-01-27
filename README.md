@@ -11,7 +11,7 @@ After running a benchmark with the BenchFoundry execution framework, each BenchF
 
 ## Requirements
 - **R1**: Accept a set of files with raw measurements from the BenchFoundry execution framework as input to the BenchFoundry analyzer.
-- **R2**: Preserve meta-information provided by the implicit structure of the raw result files provided by the BenchFoundry clients.
+- **R2**: Preserve meta-information provided by the implicit structure of the raw result files provided by the BenchFoundry execution framework.
 - **R3**: Scale to large input files that exceed multiple GB in total size.
 - **R4**: Avoid high resource requirements for a target execution environment to run the BenchFoundry analyzer.
 - **R5**: Provide functionality to derive common statistics, e.g., min, max, count, arithmetic mean, percentiles.
