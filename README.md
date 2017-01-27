@@ -1,4 +1,4 @@
-# BanchFoundry Analyzer
+# BenchFoundry Analyzer
 Analyzer for results obtained by the BenchFoundry benchmarking framework.
 
 ## Goal
