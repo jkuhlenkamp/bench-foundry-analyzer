@@ -3,6 +3,7 @@ package de.tub.ise.benchfoundry.analyzer.process.impl;
 import de.tub.ise.benchfoundry.analyzer.model.Measurement;
 import de.tub.ise.benchfoundry.analyzer.model.Statistics;
 import de.tub.ise.benchfoundry.analyzer.model.enums.ResultType;
+import de.tub.ise.benchfoundry.analyzer.printer.impl.ConsolePrinter;
 import de.tub.ise.benchfoundry.analyzer.stream.impl.MemoryStreamFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,4 +79,5 @@ public class LatencyStatisticsBuilderTest {
         assertTrue(statistics.containsKey("100th_percentile") && statistics.get("100th_percentile") != null);
         assertEquals(200D, Double.valueOf(statistics.get("100th_percentile").getValue()), 0D);
     }
+    
 }
