@@ -21,6 +21,7 @@ After running a benchmark with the BenchFoundry execution framework, each BenchF
 - **R9**: Develop against JDK 8uxxx to avoid additional deployment requirements over the benchFoundry execution framework.
 - **R10**: Allow for explicit strategies to handle any corrupt or missing data.
 
+
 ## Design
 #### Canonical Data Format
 The BenchFoundry analyzer maps raw measurements internally in a canonical data format that can be represented as a relational schema (R1 & R2). Each row in the corresponding relation represents a single BusinessOperation executed by the BenchFoundry execution framework. We refer to a single row as Measurement. The relation includes the following attributes:
@@ -44,8 +45,17 @@ We designed the core of the BenchFoundry analyzer as stream processing applicati
 
 The framework includes 3 stages: **Stream**, **Process**, **Print**
 - **Stream**: The Stream stage exposes files that contain raw measurements as a Stream of Measurement objects. Thus, raw measurements are desirialized into the canonical data format.
-- **Process**: The Process stage performs a number of analyzis on a stream of Measurement objects exposes by the Stream stage. As a result a single Statistics object is exposed to the final Print stage by the Processor. It is possible to customize analysis by adding additional StatisticsBuilder objects to the Processor.
+- **Process**: The Process stage performs a number of analyzis on a stream of Measurement objects exposes by the Stream stage. As a result a single Statistics object is exposed to the final Print stage by the Processor. It is possible to customize analysis by adding additional StatisticsBuilder objects to the Processor. Results are directly writen to a file or passed to the Print stage for rendering.
 - **Print**: Render a Statistics object.
+
+## Metrics
+Sample: Define a sample out of the complete raw data to perform computations. For example, a projection on fields operation_id, is_operation_start and is_operation_end.
+
+Complex Computations
+- **group by**: time buckets (groupby, thr)
+- **count**: absolute frequencies
+- **Find-pair-and-process**: is READ stale, how long did it take for all replicas to converge after a WRITE 
+- **Mark-measurement-based-on-complex-event**: Does a BP include any failed BO?
 
 
 
