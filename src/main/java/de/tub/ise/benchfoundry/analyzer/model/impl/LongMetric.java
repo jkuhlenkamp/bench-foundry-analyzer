@@ -8,8 +8,8 @@ import de.tub.ise.benchfoundry.analyzer.model.Metric;
  */
 public class LongMetric extends Metric {
 
-    public LongMetric(String name, Long value) {
-        super(name, String.valueOf(value));
+    public LongMetric(String sample, String name, Long value) {
+        super(sample, name, String.valueOf(value));
     }
 
     public Long getLong() {

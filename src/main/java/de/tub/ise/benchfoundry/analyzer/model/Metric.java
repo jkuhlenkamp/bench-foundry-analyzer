@@ -6,13 +6,17 @@ package de.tub.ise.benchfoundry.analyzer.model;
  */
 public class Metric {
 
+    private final String sample;
     private final String name;
     private final String value;
 
-    public Metric(String name, String value) {
+    public Metric(String sample, String name, String value) {
         this.name = name;
         this.value = value;
+        this.sample = sample;
     }
+
+    public String getSample() { return sample; }
 
     public String getName() {
         return name;

@@ -10,8 +10,8 @@ public class TimestampMetric extends LongMetric {
 
     private final TimestampPrecision precision;
 
-    public TimestampMetric(String name, Long value, TimestampPrecision precision) {
-        super(name, value);
+    public TimestampMetric(String sample, String name, Long value, TimestampPrecision precision) {
+        super(sample, name, value);
         this.precision = precision;
     }
 
