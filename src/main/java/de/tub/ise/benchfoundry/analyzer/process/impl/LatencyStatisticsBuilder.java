@@ -16,9 +16,11 @@ import de.tub.ise.benchfoundry.analyzer.stream.StreamFactory;
  * @author Joern Kuhlenkamp (j.kuhlenkamp@gmail.com)
  *         Created by on 26.01.17.
  */
-class LatencyStatisticsBuilder extends StatisticsBuilder {
+public class LatencyStatisticsBuilder extends StatisticsBuilder {
 
-    LatencyStatisticsBuilder(StreamFactory factory) {
+    private final static String sample = "BusinessOperation_Request-Response_Latencies";
+
+    public LatencyStatisticsBuilder(StreamFactory factory) {
         super(factory);
     }
 
@@ -48,21 +50,21 @@ class LatencyStatisticsBuilder extends StatisticsBuilder {
                 .mapToLong(Measurement::getRequestResponseLatency)
                 .min()
                 .getAsLong();
-        statistics.put("min", new Metric("min", String.valueOf(min)));
+        statistics.put("min", new Metric(sample, "min", String.valueOf(min)));
 
         // Maximum latency of all measurements in the dataset
         long max = getStreamFactory().create()
                 .mapToLong(Measurement::getRequestResponseLatency)
                 .max()
                 .getAsLong();
-        statistics.put("max", new Metric("max", String.valueOf(max)));
+        statistics.put("max", new Metric(sample, "max", String.valueOf(max)));
 
         // Arithmetic mean latency of all measurements in the dataset
         double mean = getStreamFactory().create()
                 .mapToLong(Measurement::getRequestResponseLatency)
                 .boxed()
                 .collect(new LongArithmeticMean());
-        statistics.put("arithmetic_mean", new Metric("arithmetic_mean", String.valueOf(mean)));
+        statistics.put("arithmetic_mean", new Metric(sample, "arithmetic_mean", String.valueOf(mean)));
 
         // 0th percentile latency of all measurements in the dataset
         long percentile_0th = getStreamFactory().create()
@@ -70,7 +72,7 @@ class LatencyStatisticsBuilder extends StatisticsBuilder {
                 .boxed()
                 .sorted()
                 .collect(new LongValueAtPositionFromOrderedStream(getPositionOfPercentile(count, 0)));
-        statistics.put("0th_percentile", new Metric("0th_percentile", String.valueOf(percentile_0th)));
+        statistics.put("0th_percentile", new Metric(sample, "0th_percentile", String.valueOf(percentile_0th)));
 
         // 50th percentile latency of all measurements in the dataset
         long percentile_50th = getStreamFactory().create()
@@ -78,7 +80,7 @@ class LatencyStatisticsBuilder extends StatisticsBuilder {
                 .boxed()
                 .sorted()
                 .collect(new LongValueAtPositionFromOrderedStream(getPositionOfPercentile(count, 50)));
-        statistics.put("50th_percentile", new Metric("50th_percentile", String.valueOf(percentile_50th)));
+        statistics.put("50th_percentile", new Metric(sample, "50th_percentile", String.valueOf(percentile_50th)));
 
         // 100th percentile latency of all measurements in the dataset
         long percentile_100th = getStreamFactory().create()
@@ -86,7 +88,7 @@ class LatencyStatisticsBuilder extends StatisticsBuilder {
                 .boxed()
                 .sorted()
                 .collect(new LongValueAtPositionFromOrderedStream(getPositionOfPercentile(count, 100)));
-        statistics.put("100th_percentile", new Metric("100th_percentile", String.valueOf(percentile_100th)));
+        statistics.put("100th_percentile", new Metric(sample, "100th_percentile", String.valueOf(percentile_100th)));
 
         return statistics;
     }
