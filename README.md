@@ -48,7 +48,7 @@ The framework includes 3 stages: **Stream**, **Process**, **Print**
 - **Process**: The Process stage performs a number of analyzis on a stream of Measurement objects exposes by the Stream stage. As a result a single Statistics object is exposed to the final Print stage by the Processor. It is possible to customize analysis by adding additional StatisticsBuilder objects to the Processor. Results are directly writen to a file or passed to the Print stage for rendering.
 - **Print**: Render a Statistics object.
 
-## Complex Metrics
+## Complex Computations and Metrics
 We support a set of basic statistics, e.g., arithmetic mean, percentiles, on selected samples, e.g., request-response latencies, out of the box. Here we discuss additional complex statistics that we will support in near future.
 
 Define Custom Sample: Define a sample out of the complete raw data to perform computations. For example, a projection on fields operation_id, is_operation_start and is_operation_end.
