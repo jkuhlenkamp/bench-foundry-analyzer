@@ -39,5 +39,13 @@ The BenchFoundry analyzer maps raw measurements internally in a canonical data f
 
 We assume that this canonical data format is not exhaustive. Therefore, we allow adding additional attributes in the future (R7).
 
-#### Stream Processing Core
-We designed the core of the BenchFoundry analyzer as stream processing application to support raw inputs that exceed the size of the memory in a target execution environment (R3 & R4). The stream processing core operates on a stream of Measurement elements that is provided by a StreamBuilder. The Processor is initialized with a set of MetricProvider objects. A MetricProvider operates on a stream of Measurement elements and returns an unordered list of Metric objects. The Processor wraps all Metric objects provided by all MetricProvider objects in a single Statistics that is forwarded to a Renderer. The renderer prints raw Metrics or populates a template with metrics provided by a Statistics object. 
+#### Stream Processing Core - Overview
+We designed the core of the BenchFoundry analyzer as stream processing application to support raw inputs that exceed the size of the memory in a target execution environment (R3 & R4). The stream processing core operates on a stream of measurements.
+
+The framework includes 3 stages: **Stream**, **Process**, **Print**
+- **Stream**: The Stream stage exposes files that contain raw measurements as a Stream of Measurement objects. Thus, raw measurements are desirialized into the canonical data format.
+- **Process**: The Process stage performs a number of analyzis on a stream of Measurement objects exposes by the Stream stage. As a result a single Statistics object is exposed to the final Print stage by the Processor. It is possible to customize analysis by adding additional StatisticsBuilder objects to the Processor.
+- **Print**: Render a Statistics object.
+
+
+
